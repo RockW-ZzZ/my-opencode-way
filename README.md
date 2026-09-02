@@ -1,7 +1,8 @@
 # my-opencode-way
 
 > opencode 生产力环境恢复手册。记录本机安装的**插件、Skills、Agents、Commands、MCP**及外部依赖，
-> 不含任何 API Key，方便在其它电脑/新机快速恢复。模型接入（provider）配置**不在本仓库**范围内。
+> 不含任何 API Key，方便在其它电脑/新机快速恢复。API Key / `auth.json` 不入库；
+> 自定义供应商的**模型能力参数**（输入输出类型、上下文、是否推理）见 `models.md`，恢复时需自动补全。
 
 本仓库为 git 仓库（`main` 分支），无远端；内容需自行提交/推送到你的私有远端。
 
@@ -13,6 +14,7 @@ my-opencode-way/
 ├── plugins.md                    # 插件清单与版本
 ├── skills.md                     # Skill / Agent / Command / MCP 说明
 ├── tools.md                      # 外部系统依赖（需自行安装）
+├── models.md                     # 自定义供应商模型参数：恢复时自动检测并补全
 ├── configs/                      # 全局配置（已脱敏，无 Key）
 │   ├── opencode.json             # 全局：插件清单
 │   ├── tui.jsonc                 # TUI 插件
@@ -39,8 +41,12 @@ my-opencode-way/
 5. **启动 opencode**，插件即被自动加载：
    - `oh-my-embedded` 会生成 6 个 Skill / 3 个 Agent / 5 个 Command / 若干 MCP 配置；
    - `image-gen` 为手动 Skill，随 `skills/` 目录生效。
-
-> 模型接入（各 provider 的 `auth.json`）需自行在 opencode 内配置，不属于本仓库内容。
+6. **接入自定义供应商后，补全模型参数**（必须）：
+   - 自行在 opencode 内配置 provider / Key（`auth.json` 不入库）。
+   - 然后扫描全局 `opencode.jsonc` 里 `provider.*.models` 的全部模型 ID。
+   - 用 [models.dev](https://models.dev/api.json)（未命中再查厂商文档）写入：
+     `modalities`（输入输出类型）、`limit.context` / `limit.output`（上下文与最大输出）、`reasoning`（是否支持推理）。
+   - 字段必须符合 schema，详见 `models.md`。改完后**重启 opencode**。
 
 ## 本机环境清单（Windows）
 
@@ -52,11 +58,14 @@ my-opencode-way/
 详见 `plugins.md`。快速安装命令：
 
 ```powershell
-# 已在 opencode.json / tui.jsonc 中声明，重启 opencode 自动解析；也可手动 pin 版本
-npm i -D oh-my-embedded@0.1.1 opencode-firecrawl@0.2.4 opencode-mnemosyne@3.1.15 @tarquinen/opencode-dcp@1.6.5 opencode-visual-cache@1.6.5
+# 已在 opencode.json / tui.jsonc 中声明，重启 opencode 自动解析；手动安装均为最新版
+npm i -D oh-my-embedded opencode-mnemosyne "@tarquinen/opencode-dcp" opencode-visual-cache "opencode-firecrawl@https://codeload.github.com/firecrawl/opencode-firecrawl/tar.gz/refs/heads/main"
+npm i -g firecrawl-cli   # firecrawl 插件的外部 CLI（必须）
 ```
 
 ## 注意事项
 
 - **严禁把任何 Key / Token / 密钥提交进本仓库**；`skills/image-gen/.env.example` 只提供占位符。
+- 自定义供应商模型默认只有 `name`，不补 `modalities` / `limit` / `reasoning` 则无法按官方能力使用多模态、长上下文和推理。
+- 模型对象禁止未知字段：不要写 `context_length`、`max_output_tokens`，不要把输入类型写成 `"file"`（用 `"pdf"`）。
 - opencode 配置在启动时一次性加载，**改动后需退出并重启 opencode** 才生效。
