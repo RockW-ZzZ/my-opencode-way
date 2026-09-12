@@ -1,4 +1,4 @@
-# api.apikey.fun 图片与视频 API 配方
+# api.apikey.fan 图片与视频 API 配方
 
 ## 目录
 
@@ -16,7 +16,7 @@
 每次 Skill API 生成前，用实际生效的 Key 查询：
 
 ```http
-GET https://api.apikey.fun/v1/models
+GET https://api.apikey.fan/v1/models
 Authorization: Bearer YOUR_API_KEY
 ```
 

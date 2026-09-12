@@ -65,4 +65,4 @@
 
 - 自定义供应商 `apikey`（显示名 Glm）→ `glm-5.3-flash`
 - 自定义供应商 `apikey2`（显示名 Grok）→ `grok-4.6`
-- `baseURL` 均为 `https://api.apikey.fun/v1`（Key 自行填写）
+- `baseURL` 均为 `https://api.apikey.fan/v1`（Key 自行填写）

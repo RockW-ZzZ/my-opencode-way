@@ -48,10 +48,10 @@ class JsonArgumentParser(argparse.ArgumentParser):
 
 
 def parse_args():
-    parser = JsonArgumentParser(description="api.apikey.fun 图片/视频生成脚本")
+    parser = JsonArgumentParser(description="api.apikey.fan 图片/视频生成脚本")
     parser.add_argument("--mode", default="text", choices=("text", "image", "edit", "video"))
     parser.add_argument("--api-key", default=os.environ.get("OPENAI_API_KEY", ""))
-    parser.add_argument("--base-url", default="https://api.apikey.fun/v1")
+    parser.add_argument("--base-url", default="https://api.apikey.fan/v1")
     parser.add_argument("--prompt", default="")
     parser.add_argument("--image", default="", help="image/edit 必填；video 可选（图生视频）")
     parser.add_argument("--model", default="", help="不传则根据 /models 自动选择")

@@ -54,7 +54,7 @@ function usage() {
     "用法：node scripts/node/image-gen.js --mode text|image|edit|video --prompt <提示词> [参数]",
     "",
     "  --api-key <key>       默认读取 OPENAI_API_KEY",
-    "  --base-url <url>      默认 https://api.apikey.fun/v1",
+    "  --base-url <url>      默认 https://api.apikey.fan/v1",
     "  --mode <mode>         text、image、edit 或 video",
     "  --prompt <text>       提示词",
     "  --image <path|url>    image/edit 必填；video 可选（图生视频）",
@@ -102,7 +102,7 @@ function normalizeMode(mode) {
 }
 
 function buildApiUrl(baseUrl, apiPath) {
-  const base = (baseUrl || "https://api.apikey.fun/v1").replace(/\/+$/, "");
+  const base = (baseUrl || "https://api.apikey.fan/v1").replace(/\/+$/, "");
   const suffix = apiPath.startsWith("/") ? apiPath : `/${apiPath}`;
   return base.endsWith("/v1") && suffix.startsWith("/v1/") ? `${base}${suffix.slice(3)}` : `${base}${suffix}`;
 }
@@ -365,7 +365,7 @@ async function main() {
   if (args.help) return process.stdout.write(`${usage()}\n`);
   const apiKey = requireArg(args, "api-key", process.env.OPENAI_API_KEY || "");
   const timeout = intArg(args, "timeout", 900);
-  const baseUrl = args["base-url"] || "https://api.apikey.fun/v1";
+  const baseUrl = args["base-url"] || "https://api.apikey.fan/v1";
   const models = await discoverModels(baseUrl, apiKey, timeout);
   if (args["list-models"]) {
     return process.stdout.write(`${JSON.stringify({ ok: true, models, compatible: { image: IMAGE_MODELS.filter((m) => models.includes(m)), video: VIDEO_MODELS.filter((m) => models.includes(m)) } }, null, 2)}\n`);

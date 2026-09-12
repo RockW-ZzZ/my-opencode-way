@@ -40,12 +40,12 @@
 图片/视频生成 Skill，本仓库 `skills/image-gen/` 为完整副本（已去除 `.env`，密钥请自行填写）。
 
 - 来源：https://gitee.com/xinze_1/codex-image-skill-api-key.git（本仓库 `skills/image-gen/` 为该仓库的离线备份）
-- 入口（`SKILL.md`）：先询问用「Skill 模型(api.apikey.fun)」还是「本地工具」；
+- 入口（`SKILL.md`）：先询问用「Skill 模型(api.apikey.fan)」还是「本地工具」；
   选 Skill 模型后实时 `GET /v1/models` 发现模型再自动选择。
 - 支持：文生图 / 图生图 / 图片编辑 / 视频生成（异步轮询）；图片 `gpt-image-2` / `grok-imagine-image`；
   视频 `grok-imagine-video`（480p/720p）/ `grok-imagine-video-1.5`（1080p）。
 - 脚本：`scripts/node/image-gen.js`（Node 18+）、`scripts/python/image_gen.py`（仅标准库）。
-- 配置：全局 `~/.config/opencode/skills/image-gen/.env`（`OPENAI_API_KEY`、`IMAGE_GEN_BASE_URL=`https://api.apikey.fun/v1）。
+- 配置：全局 `~/.config/opencode/skills/image-gen/.env`（`OPENAI_API_KEY`、`IMAGE_GEN_BASE_URL=`https://api.apikey.fan/v1）。
 
 ## 三、恢复注意
 

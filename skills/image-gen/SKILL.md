@@ -1,9 +1,9 @@
 ---
 name: image-gen
-description: 当用户调用 image_gen，或需要在 OpenClaw、Hermes、Codex、Claude Code、OpenAI 兼容客户端、api.apikey.fun 网关中生成或编辑图片、生成视频、图生视频，或编写相关脚本时使用本技能。每次生成前必须询问用户选择 Skill 模型还是本地工具；选择 Skill 模型后从上游实时发现模型并自动选择，图片请求使用流式输出，视频请求使用异步轮询。
+description: 当用户调用 image_gen，或需要在 OpenClaw、Hermes、Codex、Claude Code、OpenAI 兼容客户端、api.apikey.fan 网关中生成或编辑图片、生成视频、图生视频，或编写相关脚本时使用本技能。每次生成前必须询问用户选择 Skill 模型还是本地工具；选择 Skill 模型后从上游实时发现模型并自动选择，图片请求使用流式输出，视频请求使用异步轮询。
 ---
 
-# APIKEY.FUN 图片与视频生成
+# apikey.fan 图片与视频生成
 
 ## 资源导航
 
@@ -19,22 +19,22 @@ description: 当用户调用 image_gen，或需要在 OpenClaw、Hermes、Codex�
 在生成或编辑任何图片、生成任何视频之前，必须先询问用户：
 
 ```text
-这次使用 Skill 模型（api.apikey.fun）还是本地工具？
+这次使用 Skill 模型（api.apikey.fan）还是本地工具？
 ```
 
 严格遵守以下规则：
 
 1. 每个新的图片或视频生成任务都重新询问一次；不要沿用上次选择。
 2. 用户回答前，不查询上游模型，不调用生成接口，也不调用本地生成工具。
-3. 选择 **Skill 模型**：使用本技能脚本，先发现模型，再自动选择并调用 api.apikey.fun。
-4. 选择 **本地工具**：不要执行本技能脚本，不要调用 api.apikey.fun；改用当前客户端可用的本地图片或视频工具。
+3. 选择 **Skill 模型**：使用本技能脚本，先发现模型，再自动选择并调用 api.apikey.fan。
+4. 选择 **本地工具**：不要执行本技能脚本，不要调用 api.apikey.fan；改用当前客户端可用的本地图片或视频工具。
 5. 如果当前环境没有适合任务的本地工具，明确说明并让用户改选 Skill 模型；不要自行切换。
 
 ## API Key
 
-优先使用当前客户端或 provider 已配置的 api.apikey.fun Key，通常来自 `OPENAI_API_KEY`。也可以使用单次 `--api-key`。
+优先使用当前客户端或 provider 已配置的 api.apikey.fan Key，通常来自 `OPENAI_API_KEY`。也可以使用单次 `--api-key`。
 
-本技能专用 key 保存在技能目录 `.env`（`OPENAI_API_KEY`），脚本启动时自动读取，优先于进程环境变量。base URL 可用 `.env` 中 `IMAGE_GEN_BASE_URL` 覆盖，默认 `https://api.apikey.fun/v1`。
+本技能专用 key 保存在技能目录 `.env`（`OPENAI_API_KEY`），脚本启动时自动读取，优先于进程环境变量。base URL 可用 `.env` 中 `IMAGE_GEN_BASE_URL` 覆盖，默认 `https://api.apikey.fan/v1`。
 
 不要要求用户在聊天中粘贴完整 Key，不要输出或保存 Key。缺少 Key 时，让用户把 key 写入技能目录 `.env` 后确认。
 
@@ -47,7 +47,7 @@ GET /v1/models
 Authorization: Bearer <key>
 ```
 
-base URL 为 `https://api.apikey.fun` 时访问 `/v1/models`；base URL 已含 `/v1` 时访问 `/models`，避免 `/v1/v1`。
+base URL 为 `https://api.apikey.fan` 时访问 `/v1/models`；base URL 已含 `/v1` 时访问 `/models`，避免 `/v1/v1`。
 
 不得跳过模型发现，也不得在发现失败时盲用默认模型。显式传入 `--model` 时，同样检查它是否出现在上游列表中。
 
