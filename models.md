@@ -59,10 +59,10 @@
 | 模型 ID | 输入 | 输出 | context | output | reasoning | attachment | 来源 |
 |---|---|---|---|---|---|---|---|
 | `glm-5.3-flash` | text, image, video, pdf | text | 1,000,000 | 131,072 | true | true | models.dev / 智谱：1M 上下文、128K 输出、思考不可关、原生多模态 |
-| `grok-4.6` | text, image, pdf | text | 500,000 | 500,000 | true | true | models.dev / xAI：500K 上下文、无输出上限、reasoning 不可关 |
+| `grok-4.7` | text, image, pdf | text | 500,000 | 500,000 | true | true | models.dev / xAI：500K 上下文、无输出上限、reasoning 不可关 |
 
 当前本机对应关系（不含 Key）：
 
 - 自定义供应商 `apikey`（显示名 Glm）→ `glm-5.3-flash`
-- 自定义供应商 `apikey2`（显示名 Grok）→ `grok-4.6`
+- 自定义供应商 `apikey2`（显示名 Grok）→ `grok-4.7`
 - `baseURL` 均为 `https://api.apikey.fan/v1`（Key 自行填写）
