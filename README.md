@@ -45,7 +45,8 @@ my-opencode-way/
    - 自行在 opencode 内配置 provider / Key（`auth.json` 不入库）。
    - 然后扫描全局 `opencode.jsonc` 里 `provider.*.models` 的全部模型 ID。
    - 用 [models.dev](https://models.dev/api.json)（未命中再查厂商文档）写入：
-     `modalities`（输入输出类型）、`limit.context` / `limit.output`（上下文与最大输出）、`reasoning`（是否支持推理）。
+     `modalities`（输入输出类型）、`limit.context` / `limit.output`（上下文与最大输出）、`reasoning`（是否支持推理）、
+     `variants`（推理强度档位，取值见 models.dev 的 `reasoning_options`）。
    - 字段必须符合 schema，详见 `models.md`。改完后**重启 opencode**。
 
 ## 本机环境清单（Windows）
@@ -66,6 +67,6 @@ npm i -g firecrawl-cli   # firecrawl 插件的外部 CLI（必须）
 ## 注意事项
 
 - **严禁把任何 Key / Token / 密钥提交进本仓库**；`skills/image-gen/.env.example` 只提供占位符。
-- 自定义供应商模型默认只有 `name`，不补 `modalities` / `limit` / `reasoning` 则无法按官方能力使用多模态、长上下文和推理。
+- 自定义供应商模型默认只有 `name`，不补 `modalities` / `limit` / `reasoning` / `variants` 则无法按官方能力使用多模态、长上下文和推理。
 - 模型对象禁止未知字段：不要写 `context_length`、`max_output_tokens`，不要把输入类型写成 `"file"`（用 `"pdf"`）。
 - opencode 配置在启动时一次性加载，**改动后需退出并重启 opencode** 才生效。
