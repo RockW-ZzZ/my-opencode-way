@@ -4,6 +4,9 @@
 
 > 插件仓库（Skills/Agents/Commands 与此表一一对应）：https://github.com/captainluzik/oh-my-embedded
 
+> ⚠️ **opencode V2 下 `oh-my-embedded` 不再加载**（V1 插件 API，见 `plugins.md`）。下列 Skill/Agent/Command
+> 文件是它此前生成、仍留在磁盘上的副本，可作参考；但插件不运行，其 `embedded-*` 工具在 V2 不可用。
+
 ### Skills（6 个，位于 `skills/`）
 
 | Skill | 用途 | 外部依赖 / MCP |
@@ -51,4 +54,6 @@
 
 - `oh-my-embedded` 生成的 Skill/Agent/Command 依赖外部程序/MCP 服务，见 `tools.md`；跨平台路径差异
   （如 `~/.local/share/oh-my-embedded/...`）在 Windows/Linux 需按实际情况调整。
+- **opencode V2**：`oh-my-embedded` 不加载（V1 插件 API），其 Skill/Agent/Command 文件仍在磁盘但 `embedded-*` 工具不可用；
+  若要在 V2 继续用这些 Skill，需等待插件升级到 V2 插件 API。
 - image-gen 的 `.env` 含 Key，务必使用 `.env.example` 手动填写，**不得提交**。

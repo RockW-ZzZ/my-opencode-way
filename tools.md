@@ -12,7 +12,7 @@
 | 电路仿真 | `ngspice` | `circuit-simulator` 仿真引擎 | Windows 经 MSYS2 安装，见下方记录 |
 | 电子 CAD | `KiCad`（本机 10.x） | `pcb-designer` 原理图/PCB/DRC | 需 `kicad-cli` 在 PATH 中可调用 |
 | 调试 | `mcp-server-gdb`、`serial-mcp-server` | `firmware-debugger` 的 GDB 与串口 | **Rust 项目，`cargo install`**（非 pip）；另需 GDB 工具链与调试探针硬件 |
-| 网页抓取 | `firecrawl-cli` | `opencode-firecrawl` 插件的命令行工具 | `npm i -g firecrawl-cli`；首次使用引导登录或设置 `FIRECRAWL_API_KEY` |
+| 网页抓取 | `firecrawl-cli` | `opencode-firecrawl` 插件的命令行工具（**已弃用**：插件已移除，本项无需安装） | `npm i -g firecrawl-cli`；首次使用引导登录或设置 `FIRECRAWL_API_KEY` |
 
 ## 本机（Windows）实际安装记录（2026-09-02）
 

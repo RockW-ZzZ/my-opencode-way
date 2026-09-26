@@ -1,8 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "oh-my-embedded",
-    "opencode-mnemosyne",
     "@tarquinen/opencode-dcp@latest"
   ]
 }
