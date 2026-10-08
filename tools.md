@@ -10,11 +10,11 @@
 | Python 运行时 | `python3` / `uv` | 运行 esp-mcp、spicebridge 等 | 需 Python 3.11+；esp-mcp 另需 `uv python install 3.11` |
 | 节点运行时 | `node` / `npx` | kicad-mcp-server、@jlcpcb/mcp、firecrawl-cli、image-gen 的 Node 脚本 | Node 18+ |
 | 电路仿真 | `ngspice` | `circuit-simulator` 仿真引擎 | Windows 经 MSYS2 安装，见下方记录 |
-| 电子 CAD | `KiCad`（本机 10.x） | `pcb-designer` 原理图/PCB/DRC | 需 `kicad-cli` 在 PATH 中可调用 |
+| 电子 CAD | `KiCad` | `pcb-designer` 原理图/PCB/DRC | 需 `kicad-cli` 在 PATH 中可调用 |
 | 调试 | `mcp-server-gdb`、`serial-mcp-server` | `firmware-debugger` 的 GDB 与串口 | **Rust 项目，`cargo install`**（非 pip）；另需 GDB 工具链与调试探针硬件 |
 | 网页抓取 | `firecrawl-cli` | `opencode-firecrawl` 插件的命令行工具（**已弃用**：插件已移除，本项无需安装） | `npm i -g firecrawl-cli`；首次使用引导登录或设置 `FIRECRAWL_API_KEY` |
 
-## 本机（Windows）实际安装记录（2026-09-02）
+## Windows 实际安装记录（2026-09-02）
 
 ```powershell
 # uv（pip 装到用户 Scripts，已加入用户 PATH）
@@ -42,18 +42,18 @@ C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm mingw-w64-x86_64-ngspice"
 ### 关键坑位记录
 
 - **ngspice**：MSYS2 的 `ngspice.exe` 是 GUI 子系统构建，重定向管道会**无限挂起**；
-  同目录 `ngspice_con.exe` 才是控制台版。本机做法：`ngspice.exe` 改名为 `ngspice_gui.exe`，
+  同目录 `ngspice_con.exe` 才是控制台版。做法：`ngspice.exe` 改名为 `ngspice_gui.exe`，
   再把 `ngspice_con.exe` 复制为 `ngspice.exe`（同目录 DLL 齐全）。
   spicelib 的查找顺序：`C:/Apps/NGSpice64/bin/ngspice.exe` → `C:/Spice64/ngspice.exe` → `/usr/local/bin/ngspice` → PATH。
 - **kicad-mcp-server**（npm 上无此包）：需手动放到
-  `C:\Users\zcj12\.local\share\oh-my-embedded\kicad-mcp-server`，
+  `%USERPROFILE%\.local\share\oh-my-embedded\kicad-mcp-server`，
   在该目录 `npm install && npm run build` 生成 `dist/index.js`（插件用 `node dist/index.js` 启动）。
 - **esp-mcp**（PyPI 无此包）：仓库需放到
-  `C:\Users\zcj12\.local\share\oh-my-embedded\esp-mcp`；
+  `%USERPROFILE%\.local\share\oh-my-embedded\esp-mcp`；
   插件用 `uv run --directory .../esp-mcp --python 3.11 python main.py` 启动，
   首次运行 uv 自动建 `.venv` 并装依赖（`mcp[cli]`）。
 - **KiCad**：winget 装的是 per-user 版，位于
-  `C:\Users\zcj12\AppData\Local\Programs\KiCad\10.0\bin`（含 `kicad-cli.exe`），该目录已加入用户 PATH。
+  `%LOCALAPPDATA%\Programs\KiCad\10.0\bin`（含 `kicad-cli.exe`），该目录已加入用户 PATH。
 
 ## 建议安装命令（Linux 示例，跨平台参考）
 
@@ -65,14 +65,14 @@ cargo install mcp-server-gdb serial-mcp-server
 
 ## MCP 服务在 Skill 中的定义（插件 SKILL.md frontmatter，路径为 `~` 语义）
 
-- `esp-mcp`      → `uv run --directory ~/.local/share/oh-my-embedded/esp-mcp --python 3.11 python main.py`（本机已就位）
-- `kicad`        → `node ~/.local/share/oh-my-embedded/kicad-mcp-server/dist/index.js`（本机已构建）
+- `esp-mcp`      → `uv run --directory ~/.local/share/oh-my-embedded/esp-mcp --python 3.11 python main.py`（已就位）
+- `kicad`        → `node ~/.local/share/oh-my-embedded/kicad-mcp-server/dist/index.js`（已构建）
 - `gdb`          → `mcp-server-gdb`（cargo 安装于 `%USERPROFILE%\.cargo\bin`）
 - `serial`       → `serial-mcp-server`（cargo 安装于 `%USERPROFILE%\.cargo\bin`）
 - `jlcpcb`       → `npx -y @jlcpcb/mcp`（npx 自动装，无需手动）
 - `spicebridge`  → `pip install spicebridge` 后由 `spicebridge` 命令启动
 
-> Windows 下 `~` 由 opencode 展开时指向 `C:\Users\<用户>\`，本机已按此布局放置；若重启后某 MCP 起不来，
+> Windows 下 `~` 由 opencode 展开时指向 `C:\Users\<用户>\`，已按此布局放置；若重启后某 MCP 起不来，
 > 检查插件生成的 SKILL frontmatter 中 `~` 是否被正确展开，必要时改为绝对路径。
 
 ## image-gen 独立依赖

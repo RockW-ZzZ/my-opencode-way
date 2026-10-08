@@ -1,6 +1,6 @@
 # my-opencode-way
 
-> opencode 生产力环境恢复手册。记录本机安装的**插件、Skills、Agents、Commands、MCP**及外部依赖，
+> opencode 生产力环境恢复手册。记录本方案使用的**插件、Skills、Agents、Commands、MCP**及外部依赖，
 > 不含任何 API Key，方便在其它电脑/新机快速恢复。API Key / `auth.json` 不入库；
 > 自定义供应商的**模型能力参数**（输入输出类型、上下文、是否推理）见 `models.md`，恢复时需自动补全。
 
@@ -29,14 +29,14 @@ my-opencode-way/
 
 1. **安装 opencode 本体（V2）**
    ```powershell
-   npm install -g @opencode/cli    # V2 官方 npm 包（当前 2.0.24）
+   npm install -g @opencode/cli    # V2 官方 npm 包
    ```
-   - ⚠️ **不要装 `opencode-ai`**：那是 **V1**（最新 1.18.35，已停止大版本演进）。V1/V2 共用 `opencode` 命令，
+   - ⚠️ **不要装 `opencode-ai`**：那是 **V1**（已停止大版本演进）。V1/V2 共用 `opencode` 命令，
      必须先 `npm uninstall -g opencode-ai` 再用 V2 覆盖。
    - 其它官方方式：`curl -fsSL https://opencode.ai/v2/install | bash`、Homebrew
      `brew install anomalyco/tap/opencode-v2`、Windows 独立二进制（见 <https://opencode.ai/v2/docs/> 的
      Standalone CLI 一节；**Windows 包管理器不受支持**）；桌面版也自带 CLI。
-   - 装完确认：`opencode --version` 应输出 `2.0.24`（2.x；不是 `1.x`）。
+   - 装完确认：`opencode --version` 应输出 `2.x`（不是 `1.x`）。
 2. **放置全局配置**
    - 把 `configs/` 下的 `opencode.json`、`cli.json`、`dcp.jsonc` 复制到本机全局目录
      （Linux/macOS：`~/.config/opencode/`；Windows：`%USERPROFILE%\.config\opencode\`）。
@@ -60,9 +60,9 @@ my-opencode-way/
      `variants`（推理强度档位，取值见 models.dev 的 `reasoning_options`）。
    - 字段必须符合 schema，详见 `models.md`。改完后**重启 opencode**。
 
-## 本机环境清单（Windows）
+## 环境清单（Windows）
 
-- opencode 全局目录：`C:\Users\zcj12\.config\opencode`
+- opencode 全局目录：`%USERPROFILE%\.config\opencode`
 - Skill 目录：`...\config\opencode\skills\`
 
 ## 插件与版本
@@ -70,7 +70,7 @@ my-opencode-way/
 详见 `plugins.md`（含兼容性判断与更新方法）。常用监测命令：
 
 ```powershell
-opencode --version          # 本机 opencode 版本（V2 当前 2.0.24）
+opencode --version          # 本机 opencode 版本（应为 2.x）
 opencode plugin list        # 已加载的 server 插件及版本
 opencode plugin check       # 检查插件更新
 opencode plugin update      # 更新到最新（改完重启 opencode）

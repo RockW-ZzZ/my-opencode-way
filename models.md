@@ -81,7 +81,7 @@ V1 是**对象**、V2 是**数组**（opencode V2 会自动把 V1 对象迁移�
 
 > `variants` 只在模型支持推理档位时写；档位取值以 models.dev 的 `reasoning_options` 为准。
 
-## 本机已核对的模型（参考，以 models.dev / 官方为准）
+## 已核对的模型（参考，以 models.dev / 官方为准）
 
 恢复时仍应重新查询；下表仅作对照，模型升级后数字可能变化。
 
@@ -89,15 +89,15 @@ V1 是**对象**、V2 是**数组**（opencode V2 会自动把 V1 对象迁移�
 |---|---|---|---|---|---|---|---|---|
 | `glm-5.3-flash` | text, image, video, pdf | text | 1,000,000 | 131,072 | true | —（不可关） | true | models.dev / 智谱：1M 上下文、128K 输出、思考不可关、原生多模态 |
 | `grok-4.7` | text, image, pdf | text | 500,000 | 500,000 | true | —（不可关） | true | models.dev / xAI：500K 上下文、无输出上限、reasoning 不可关 |
-| `deepseek-v4.1-flash` | text, image | text | 1,000,000 | 384,000 | true | low / high / max | true | models.dev / DeepSeek：1M 上下文、输出上限 393,216（本机取 384K）；`reasoning_options` 另有 toggle |
-| `gpt-6-astra` | text, image, pdf | text | 272,000（官方 1,050,000） | 128,000 | true | low / medium / high / xhigh / max | true | models.dev / OpenAI：官方 1.05M 上下文、128K 输出；本机 context 按用户设定取 272K |
+| `deepseek-v4.1-flash` | text, image | text | 1,000,000 | 384,000 | true | low / high / max | true | models.dev / DeepSeek：1M 上下文、输出上限 393,216（本仓库按 384K 设定）；`reasoning_options` 另有 toggle |
+| `gpt-6-astra` | text, image, pdf | text | 272,000（官方 1,050,000） | 128,000 | true | low / medium / high / xhigh / max | true | models.dev / OpenAI：官方 1.05M 上下文、128K 输出；context 按设定取 272K |
 | `gpt-6-sol` | text, image, pdf | text | 272,000（官方 1,050,000） | 128,000 | true | none / low / medium / high / xhigh / max | true | 同上 |
 | `gpt-5.6-sol` | text, image, pdf | text | 272,000（官方 1,050,000） | 128,000 | true | none / low / medium / high / xhigh / max | true | 同上 |
 
 > 表中 `reasoning` / `attachment` 是 V1 字段，opencode V2 会忽略它们（见上「推理档位 `variants`」）。
 > 推理档位来自 models.dev 的 `reasoning_options`，已写进配置的 `variants`。
 
-当前本机对应关系（不含 Key）：
+当前对应关系（不含 Key）：
 
 - 自定义供应商 `apikey3`（显示名 deepseek）→ `deepseek-v4.1-flash`（含推理档位 `variants`）
 - 自定义供应商 `apikey4`（显示名 gpt）→ `gpt-6-astra` / `gpt-6-sol` / `gpt-5.6-sol`（均含推理档位 `variants`）
