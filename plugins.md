@@ -1,13 +1,13 @@
 # 插件清单
 
 > opencode 通过 `plugin`（V1）/ `plugins`（V2）声明加载第三方插件。插件会注入 Agents / Skills / Commands / MCP / 工具。
-> 下表为本机插件状态，`声明处` 指出它在哪个配置文件中被启用。
+> 下表为插件状态，`声明处` 指出它在哪个配置文件中被启用。
 
 ## 当前启用的插件（2026-10-08 核对）
 
 | 插件 | GitHub 链接 | 声明处 | 当前版本 | opencode 版本要求 | 作用 |
 |---|---|---|---|---|---|
-| `@tarquinen/opencode-dcp` | https://github.com/Tarquinen/opencode-dynamic-context-pruning | `configs/opencode.json` → `plugins` | 3.2.0（最新） | `@opencode-ai/plugin >=1.18.29`（V1 SDK 最新 1.18.35）；**V2 已实测可用**（V2 缓存已装 3.2.0，加载成功；`./tui` 由 CLI 自动加载） | 动态上下文裁剪（DCP），配合 `dcp.jsonc`；提供 `/dcp`、`/dcp-compress [focus]` |
+| `@tarquinen/opencode-dcp` | https://github.com/Tarquinen/opencode-dynamic-context-pruning | `configs/opencode.json` → `plugins` | 3.2.0（最新） | `@opencode-ai/plugin >=1.18.29`（V1 SDK 最新 1.18.35）；**V2 已实测可用**（V2 下可正常加载；`./tui` 由 CLI 自动加载） | 动态上下文裁剪（DCP），配合 `dcp.jsonc`；提供 `/dcp`、`/dcp-compress [focus]` |
 | `opencode-visual-cache` | https://github.com/Hotakus/opencode-visual-cache | `configs/cli.json` → `plugins`（V2）；`configs/tui.jsonc` → `plugin`（V1） | 1.7.5（最新） | **V1/V2 双支持**（`@opencode-ai/plugin >=1.14.0` 且 `@opencode/plugin >=2.0.0`；V2 SDK 最新 2.0.24） | TUI 视觉缓存：缓存命中率 / token / 成本面板、`/cache-*` 命令、i18n（zh/en/ja/ko）、多币种、余额查询 |
 
 ## 已移除的插件（V1 插件 API，V2 不兼容）
@@ -22,11 +22,11 @@
 
 一律安装**最新版**，不指定版本号。config 中以裸名或 `@latest` 声明，opencode 启动时自动解析；手动显式安装见下方「恢复命令」。当前版本核对于 **2026-10-08**。
 
-本机与官方最新版本（2026-10-08）：
+官方最新版本（2026-10-08 核对，仅供参考；实际以 `npm view` / `opencode --version` 为准）：
 
 | 渠道 | 包名 | 最新 |
 |---|---|---|
-| opencode **V2**（本机当前） | `@opencode/cli` | **2.0.24**（本机 `opencode --version` = 2.0.24） |
+| opencode **V2** | `@opencode/cli` | **2.0.24** |
 | opencode **V1**（旧版） | `opencode-ai` | **1.18.35** |
 | 插件 SDK **V2** | `@opencode/plugin` | **2.0.24** |
 | 插件 SDK **V1** | `@opencode-ai/plugin` | **1.18.35** |
@@ -38,7 +38,7 @@
 ## 版本监测与兼容性
 
 ```powershell
-opencode --version        # 本机 opencode（V2 应 ≥2.0.24）
+opencode --version        # 本机 opencode 版本（若为 1.x 说明装成了 V1）
 opencode plugin list      # 已加载的 server 插件及版本（--builtin 含内置插件）
 opencode plugin check     # 检查插件更新（分 Server / TUI 两个分区）
 opencode plugin update    # 更新所有过时插件（可跟 <target>）；改完重启 opencode
@@ -61,7 +61,7 @@ npm view <插件> version peerDependencies dependencies
 
 - **缓存锁定**（opencode issue #6774）：插件缓存会锁定首次安装的版本，`plugin update` 后版本没变时，
   先删缓存再重启 —— V2 缓存 `~/.cache/opencode/npm`，V1 缓存 `~/.cache/opencode/packages`。
-- **`plugin check` 的 TUI 分区可能报 `check failed`**：本机 `opencode-visual-cache` 即如此
+- **`plugin check` 的 TUI 分区可能报 `check failed`**：例如 `opencode-visual-cache`
   （该包只在 V1 `packages` 缓存中，未出现在 V2 `npm` 缓存）；server 插件（dcp）显示 `(current)` 正常。
 - **`opencode plugin add` 会把插件写进全局 server 配置**（`opencode.json` → `plugins`），
   **CLI/TUI 插件（如 visual-cache）不要用它**，必须手写进 `cli.json` 的 `plugins`。
@@ -74,7 +74,7 @@ https://gitee.com/xinze_1/codex-image-skill-api-key.git（本仓库 `skills/imag
 ## 恢复命令
 
 ```powershell
-# opencode 2.0.24（当前）：在 config 中声明后重启 opencode，自动安装到 ~/.cache/opencode/npm
+# opencode 2.x（当前）：在 config 中声明后重启 opencode，自动安装到 ~/.cache/opencode/npm
 #   opencode.json → plugins: ["@tarquinen/opencode-dcp@latest"]
 #   cli.json      → plugins: [{ "package": "opencode-visual-cache@latest", "options": { "enabled": true } }]
 
