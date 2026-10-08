@@ -17,7 +17,7 @@ my-opencode-way/
 ├── models.md                     # 自定义供应商模型参数：恢复时自动检测并补全
 ├── configs/                      # 全局配置（已脱敏，无 Key）
 │   ├── opencode.json             # 全局：server 插件清单
-│   ├── cli.json                  # V2 CLI 插件（opencode-visual-cache）
+│   ├── cli.json                  # V2 CLI 设置与插件（opencode-visual-cache）
 │   ├── tui.jsonc                 # V1 TUI 插件（旧版兼容；V2 用 cli.json）
 │   ├── dcp.jsonc                 # 动态上下文裁剪（DCP）配置
 │   └── .gitignore
@@ -27,10 +27,16 @@ my-opencode-way/
 
 ## 一键恢复步骤（新机）
 
-1. **安装 opencode 本体**
+1. **安装 opencode 本体（V2）**
    ```powershell
-   npm i -g opencode-ai@latest     # 或按官方文档安装
+   npm install -g @opencode/cli    # V2 官方 npm 包（当前 2.x）
    ```
+   - ⚠️ **不要装 `opencode-ai`**：那是 **V1**（npm 上停在 1.18.x）。V1/V2 共用 `opencode` 命令，
+     必须先 `npm uninstall -g opencode-ai` 再用 V2 覆盖。
+   - 其它官方方式：`curl -fsSL https://opencode.ai/v2/install | bash`、Homebrew
+     `brew install anomalyco/tap/opencode-v2`、Windows 独立二进制（见 <https://opencode.ai/v2/docs/> 的
+     Standalone CLI 一节；**Windows 包管理器不受支持**）；桌面版也自带 CLI。
+   - 装完确认：`opencode --version` 应输出 `2.x`（非 `1.x`）。
 2. **放置全局配置**
    - 把 `configs/` 下的 `opencode.json`、`cli.json`、`dcp.jsonc` 复制到本机全局目录
      （Linux/macOS：`~/.config/opencode/`；Windows：`%USERPROFILE%\.config\opencode\`）。

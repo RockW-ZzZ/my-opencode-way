@@ -7,7 +7,7 @@
 
 | 插件 | GitHub 链接 | 声明处 | 当前版本 | opencode 版本要求 | 作用 |
 |---|---|---|---|---|---|
-| `@tarquinen/opencode-dcp` | https://github.com/Tarquinen/opencode-dynamic-context-pruning | `configs/opencode.json` → `plugin` | 3.2.0 | `@opencode-ai/plugin >=1.18.29`；**V2 已实测可用**（V2 缓存已装 3.2.0，加载成功；`./tui` 由 CLI 自动加载） | 动态上下文裁剪（DCP），配合 `dcp.jsonc`；提供 `/dcp`、`/dcp-compress [focus]` |
+| `@tarquinen/opencode-dcp` | https://github.com/Tarquinen/opencode-dynamic-context-pruning | `configs/opencode.json` → `plugins` | 3.2.0 | `@opencode-ai/plugin >=1.18.29`；**V2 已实测可用**（V2 缓存已装 3.2.0，加载成功；`./tui` 由 CLI 自动加载） | 动态上下文裁剪（DCP），配合 `dcp.jsonc`；提供 `/dcp`、`/dcp-compress [focus]` |
 | `opencode-visual-cache` | https://github.com/Hotakus/opencode-visual-cache | `configs/cli.json` → `plugins`（V2）；`configs/tui.jsonc` → `plugin`（V1） | 1.7.4 | **V1/V2 双支持**（`@opencode-ai/plugin >=1.14.0` 且 `@opencode/plugin >=2.0.0`） | TUI 视觉缓存：缓存命中率 / token / 成本面板、`/cache-*` 命令、i18n（zh/en/ja/ko）、多币种、余额查询 |
 
 ## 已移除的插件（V1 插件 API，V2 不兼容）
@@ -35,7 +35,7 @@ https://gitee.com/xinze_1/codex-image-skill-api-key.git（本仓库 `skills/imag
 
 ```powershell
 # opencode 2.x（当前）：在 config 中声明后重启 opencode，自动安装到 ~/.cache/opencode/npm
-#   opencode.json → plugin: ["@tarquinen/opencode-dcp@latest"]
+#   opencode.json → plugins: ["@tarquinen/opencode-dcp@latest"]
 #   cli.json      → plugins: [{ "package": "opencode-visual-cache@latest", "options": { "enabled": true } }]
 
 # 手动显式安装（可选，均为最新版）：
