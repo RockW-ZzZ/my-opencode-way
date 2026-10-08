@@ -29,14 +29,14 @@ my-opencode-way/
 
 1. **安装 opencode 本体（V2）**
    ```powershell
-   npm install -g @opencode/cli    # V2 官方 npm 包（当前 2.x）
+   npm install -g @opencode/cli    # V2 官方 npm 包（当前 2.0.24）
    ```
-   - ⚠️ **不要装 `opencode-ai`**：那是 **V1**（npm 上停在 1.18.x）。V1/V2 共用 `opencode` 命令，
+   - ⚠️ **不要装 `opencode-ai`**：那是 **V1**（最新 1.18.35，已停止大版本演进）。V1/V2 共用 `opencode` 命令，
      必须先 `npm uninstall -g opencode-ai` 再用 V2 覆盖。
    - 其它官方方式：`curl -fsSL https://opencode.ai/v2/install | bash`、Homebrew
      `brew install anomalyco/tap/opencode-v2`、Windows 独立二进制（见 <https://opencode.ai/v2/docs/> 的
      Standalone CLI 一节；**Windows 包管理器不受支持**）；桌面版也自带 CLI。
-   - 装完确认：`opencode --version` 应输出 `2.x`（非 `1.x`）。
+   - 装完确认：`opencode --version` 应输出 `2.0.24`（2.x；不是 `1.x`）。
 2. **放置全局配置**
    - 把 `configs/` 下的 `opencode.json`、`cli.json`、`dcp.jsonc` 复制到本机全局目录
      （Linux/macOS：`~/.config/opencode/`；Windows：`%USERPROFILE%\.config\opencode\`）。
@@ -67,12 +67,24 @@ my-opencode-way/
 
 ## 插件与版本
 
-详见 `plugins.md`。快速安装命令：
+详见 `plugins.md`（含兼容性判断与更新方法）。常用监测命令：
+
+```powershell
+opencode --version          # 本机 opencode 版本（V2 当前 2.0.24）
+opencode plugin list        # 已加载的 server 插件及版本
+opencode plugin check       # 检查插件更新
+opencode plugin update      # 更新到最新（改完重启 opencode）
+```
+
+快速安装命令：
 
 ```powershell
 # 已在 opencode.json / cli.json 中声明，重启 opencode 自动解析；手动安装均为最新版
 npm i -D "@tarquinen/opencode-dcp" opencode-visual-cache
 ```
+
+> ⚠️ 插件版本必须与 opencode 大版本匹配（V1 SDK `@opencode-ai/plugin` / V2 SDK `@opencode/plugin`），
+> 装前先看 `plugins.md` 的「版本监测与兼容性」。
 
 ## 注意事项
 
